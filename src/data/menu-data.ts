@@ -1,0 +1,140 @@
+export interface MenuItem {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  category: 'lanches' | 'salgados' | 'bebidas' | 'acai' | 'porcoes';
+  image: string;
+  badge?: 'popular' | 'novo' | 'promocao';
+}
+
+export const menuItems: MenuItem[] = [
+  {
+    id: 'x-burguer',
+    name: 'X-Burguer Clássico',
+    description: 'Pão artesanal, hambúrguer 180g, queijo cheddar, alface, tomate e molho especial.',
+    price: 22.90,
+    category: 'lanches',
+    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop',
+    badge: 'popular',
+  },
+  {
+    id: 'x-bacon',
+    name: 'X-Bacon Especial',
+    description: 'Pão artesanal, hambúrguer 180g, bacon crocante, queijo, cebola caramelizada.',
+    price: 28.90,
+    category: 'lanches',
+    image: 'https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=400&h=300&fit=crop',
+  },
+  {
+    id: 'x-tudo',
+    name: 'X-Tudo da Casa',
+    description: 'O lanche completo: hambúrguer duplo, bacon, ovo, presunto, queijo, salada.',
+    price: 34.90,
+    category: 'lanches',
+    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&h=300&fit=crop',
+    badge: 'popular',
+  },
+  {
+    id: 'x-salada',
+    name: 'X-Salada Fit',
+    description: 'Pão integral, hambúrguer de frango, queijo branco, rúcula e tomate seco.',
+    price: 24.90,
+    category: 'lanches',
+    image: 'https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=400&h=300&fit=crop',
+    badge: 'novo',
+  },
+  {
+    id: 'coxinha',
+    name: 'Coxinha Cremosa',
+    description: 'Massa crocante por fora, recheio cremoso de frango desfiado com catupiry.',
+    price: 8.90,
+    category: 'salgados',
+    image: 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400&h=300&fit=crop',
+    badge: 'popular',
+  },
+  {
+    id: 'pastel-carne',
+    name: 'Pastel de Carne',
+    description: 'Massa fininha e crocante recheada com carne moída temperada. O clássico!',
+    price: 10.90,
+    category: 'salgados',
+    image: 'https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?w=400&h=300&fit=crop',
+  },
+  {
+    id: 'bolinha-queijo',
+    name: 'Bolinha de Queijo',
+    description: 'Bolinha crocante recheada com queijo derretido. Porção com 10 unidades.',
+    price: 15.90,
+    category: 'salgados',
+    image: 'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=400&h=300&fit=crop',
+  },
+  {
+    id: 'suco-natural',
+    name: 'Suco Natural',
+    description: 'Suco feito na hora com frutas frescas. Sabores: laranja, maracujá, limão, abacaxi.',
+    price: 9.90,
+    category: 'bebidas',
+    image: 'https://images.unsplash.com/photo-1625938145744-533e82ea5ad2?w=400&h=300&fit=crop',
+  },
+  {
+    id: 'milkshake',
+    name: 'Milkshake Premium',
+    description: 'Milkshake cremoso com sorvete artesanal. Sabores: chocolate, morango, ovomaltine.',
+    price: 18.90,
+    category: 'bebidas',
+    image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400&h=300&fit=crop',
+    badge: 'novo',
+  },
+  {
+    id: 'refri',
+    name: 'Refrigerante Lata',
+    description: 'Coca-Cola, Guaraná Antarctica, Sprite, Fanta. Lata 350ml bem gelada.',
+    price: 6.90,
+    category: 'bebidas',
+    image: 'https://images.unsplash.com/photo-1581636625402-29b2a704ef13?w=400&h=300&fit=crop',
+  },
+  {
+    id: 'acai-300',
+    name: 'Açaí 300ml',
+    description: 'Açaí puro cremoso com granola, banana, leite em pó e mel. Puro sabor!',
+    price: 16.90,
+    category: 'acai',
+    image: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=400&h=300&fit=crop',
+    badge: 'popular',
+  },
+  {
+    id: 'acai-500',
+    name: 'Açaí 500ml Especial',
+    description: 'Açaí cremoso com morango, kiwi, granola, leite condensado e paçoca.',
+    price: 24.90,
+    category: 'acai',
+    image: 'https://images.unsplash.com/photo-1615478503562-ec2d8aa0a24b?w=400&h=300&fit=crop',
+  },
+  {
+    id: 'batata-frita',
+    name: 'Batata Frita',
+    description: 'Porção generosa de batata frita crocante com cheddar e bacon.',
+    price: 19.90,
+    category: 'porcoes',
+    image: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=400&h=300&fit=crop',
+    badge: 'popular',
+  },
+  {
+    id: 'onion-rings',
+    name: 'Onion Rings',
+    description: 'Anéis de cebola empanados crocantes com molho barbecue artesanal.',
+    price: 21.90,
+    category: 'porcoes',
+    image: 'https://images.unsplash.com/photo-1639024471283-03518883512d?w=400&h=300&fit=crop',
+  },
+  {
+    id: 'isca-frango',
+    name: 'Isca de Frango',
+    description: 'Tiras de frango empanadas servidas com molho especial da casa.',
+    price: 23.90,
+    category: 'porcoes',
+    image: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=400&h=300&fit=crop',
+    badge: 'novo',
+  },
+];

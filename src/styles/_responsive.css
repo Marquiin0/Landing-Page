@@ -1,0 +1,54 @@
+/* ==============================
+   Mobile-first responsive overrides
+   Most responsiveness is handled by clamp() and auto-fill grids.
+   This file handles layout shifts only.
+   ============================== */
+
+/* Small: 640px+ */
+@media (min-width: 640px) {
+  .hero__ctas {
+    flex-wrap: nowrap;
+  }
+
+  .about__stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .specialties__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Medium: 768px+ */
+@media (min-width: 768px) {
+  .hero__subtitle {
+    max-width: 650px;
+  }
+
+  .about__stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .specialties__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .gallery__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Large: 1024px+ */
+@media (min-width: 1024px) {
+  .about__container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .contact__container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer__container {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+}

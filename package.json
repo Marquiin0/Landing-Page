@@ -1,0 +1,26 @@
+{
+  "name": "landing-page",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Landing Page - Sabor da Esquina | Lanchonete",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "landing-page",
+    "lanchonete",
+    "typescript",
+    "portfolio"
+  ],
+  "author": "Marquiin0",
+  "license": "MIT",
+  "devDependencies": {
+    "lightningcss": "^1.32.0",
+    "terser": "^5.46.1",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.2"
+  }
+}

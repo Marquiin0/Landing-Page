@@ -1,0 +1,60 @@
+.cursor {
+  display: none;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  will-change: transform;
+  /* mix-blend-mode removed - causes full page repaint on every frame */
+}
+
+.cursor__dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  position: absolute;
+  top: -4px;
+  left: -4px;
+}
+
+.cursor__ring {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  position: absolute;
+  top: -18px;
+  left: -18px;
+  opacity: 0.4;
+  transition: transform 0.2s ease-out, opacity 0.2s ease;
+}
+
+.cursor--hovering .cursor__ring {
+  transform: scale(1.6);
+  opacity: 0.6;
+}
+
+.cursor--hovering .cursor__dot {
+  transform: scale(1.5);
+}
+
+.cursor--clicking .cursor__ring {
+  transform: scale(0.8);
+}
+
+/* Only show on desktop with fine pointer AND min-width */
+@media (pointer: fine) and (min-width: 1024px) {
+  .cursor {
+    display: block;
+  }
+
+  body {
+    cursor: none;
+  }
+
+  a, button, input, textarea, select, [role="button"] {
+    cursor: none;
+  }
+}

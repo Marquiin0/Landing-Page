@@ -1,0 +1,64 @@
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+
+h4, h5, h6 {
+  font-family: var(--font-accent);
+  font-weight: 600;
+}
+
+.text-accent {
+  color: var(--color-primary);
+}
+
+/* Section styles */
+.section__label {
+  display: inline-block;
+  font-family: var(--font-accent);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--space-sm);
+}
+
+.section__label--light {
+  color: var(--color-primary-light);
+}
+
+.section__title {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-lg);
+}
+
+.section__title--light {
+  color: var(--color-text-light);
+}
+
+.section__subtitle {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.section__header {
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+}
+
+.section__header--left {
+  text-align: left;
+}
+
+.section__header--left .section__subtitle {
+  margin-inline: 0;
+}
