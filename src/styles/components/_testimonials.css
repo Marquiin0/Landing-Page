@@ -6,7 +6,14 @@
   position: relative;
   max-width: 800px;
   margin-inline: auto;
+  /* No overflow hidden here - arrows need to be visible outside */
+  padding-inline: var(--space-3xl);
+}
+
+/* This inner wrapper clips the slides */
+.testimonials__track-wrapper {
   overflow: hidden;
+  border-radius: var(--border-radius-lg);
 }
 
 .testimonials__track {
@@ -16,7 +23,7 @@
 
 .testimonials__slide {
   min-width: 100%;
-  padding-inline: var(--space-md);
+  padding-inline: var(--space-sm);
 }
 
 .testimonials__card {
@@ -84,8 +91,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: var(--color-white);
   box-shadow: var(--shadow-md);
@@ -93,7 +100,7 @@
   align-items: center;
   justify-content: center;
   color: var(--color-secondary);
-  transition: all var(--transition-base);
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
   z-index: 2;
 }
 
@@ -103,8 +110,8 @@
   transform: translateY(-50%) scale(1.1);
 }
 
-.testimonials__arrow--prev { left: -8px; }
-.testimonials__arrow--next { right: -8px; }
+.testimonials__arrow--prev { left: 0; }
+.testimonials__arrow--next { right: 0; }
 
 /* Dots */
 .testimonials__dots {
@@ -120,7 +127,7 @@
   border-radius: 50%;
   background: var(--color-text-muted);
   opacity: 0.3;
-  transition: all var(--transition-base);
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease;
   cursor: pointer;
   border: none;
 }
@@ -131,7 +138,14 @@
   transform: scale(1.3);
 }
 
-@media (min-width: 768px) {
-  .testimonials__arrow--prev { left: -22px; }
-  .testimonials__arrow--next { right: -22px; }
+/* Mobile: arrows smaller and closer */
+@media (max-width: 767px) {
+  .testimonials__carousel {
+    padding-inline: var(--space-xl);
+  }
+
+  .testimonials__arrow {
+    width: 40px;
+    height: 40px;
+  }
 }
