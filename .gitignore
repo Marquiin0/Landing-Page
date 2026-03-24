@@ -4,5 +4,8 @@ dist/
 *.local
 .vite/
 .playwright-mcp/
-*.png
-*.jpg
+
+# Ignore screenshots in root, but track images in public/
+/*.png
+/*.jpg
+!public/images/**
