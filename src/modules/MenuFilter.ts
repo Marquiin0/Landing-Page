@@ -41,7 +41,7 @@ export class MenuFilter {
     card.innerHTML = `
       <div class="menu__card-image">
         ${badgeHtml}
-        <img src="${item.image}" alt="${item.name}" loading="lazy" decoding="async" width="400" height="300" />
+        <img src="${this.resolveImage(item.image)}" alt="${item.name}" loading="lazy" decoding="async" width="400" height="300" />
       </div>
       <div class="menu__card-content">
         <h3 class="menu__card-name">${item.name}</h3>
@@ -54,6 +54,15 @@ export class MenuFilter {
     `;
 
     return card;
+  }
+
+  private resolveImage(src: string): string {
+    // Local images need the Vite base path prefix
+    if (src.startsWith('/')) {
+      const base = import.meta.env.BASE_URL;
+      return base + src.slice(1);
+    }
+    return src;
   }
 
   private badgeLabel(badge: string): string {
