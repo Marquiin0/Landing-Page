@@ -1,4 +1,5 @@
 import { $ } from '../utils/dom';
+import { UserState } from '../data/UserState';
 
 export class AuthForm {
   private loginForm: HTMLFormElement | null = null;
@@ -118,22 +119,30 @@ export class AuthForm {
         btn.disabled = false;
       }
 
-      if (type === 'login') {
-        this.showToast('Login realizado com sucesso!');
-      } else {
-        this.showToast('Conta criada com sucesso!');
-        // Switch to login after register
-        setTimeout(() => this.toggleMode('login'), 1500);
-      }
+      const base = import.meta.env.BASE_URL;
 
-      form.reset();
-      // Clear validation states
-      form.querySelectorAll('.form__input').forEach((input) => {
-        input.classList.remove('form__input--valid', 'form__input--error');
-      });
-      form.querySelectorAll('.form__feedback').forEach((fb) => {
-        fb.textContent = '';
-      });
+      if (type === 'register') {
+        const name = $<HTMLInputElement>('#reg-name')?.value || '';
+        const email = $<HTMLInputElement>('#reg-email')?.value || '';
+        const phone = $<HTMLInputElement>('#reg-phone')?.value || '';
+
+        UserState.register({ name, email, phone });
+        this.showToast('Conta criada com sucesso!');
+        setTimeout(() => { window.location.href = `${base}index.html`; }, 1000);
+      } else {
+        const email = $<HTMLInputElement>('#login-email')?.value || '';
+        const user = UserState.findByEmail(email);
+
+        if (user) {
+          UserState.save(user);
+        } else {
+          // First login — save with email as name
+          UserState.save({ name: email.split('@')[0], email, phone: '' });
+        }
+
+        this.showToast('Login realizado com sucesso!');
+        setTimeout(() => { window.location.href = `${base}index.html`; }, 1000);
+      }
     }, 1500);
   }
 

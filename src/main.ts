@@ -14,6 +14,7 @@ import { CustomCursor } from './modules/Cursor';
 import { HeroTextReveal } from './modules/HeroTextReveal';
 import { IngredientsCarousel } from './modules/IngredientsCarousel';
 import { Cart } from './modules/Cart';
+import { UserMenu } from './modules/UserMenu';
 
 interface PageModule {
   init(): void;
@@ -35,6 +36,7 @@ const modules: PageModule[] = [
   new Counter(),
   new ContactForm(),
   new CustomCursor(),
+  new UserMenu(),
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
