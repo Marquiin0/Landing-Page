@@ -1,16 +1,9 @@
 import { $ } from '../utils/dom';
 import { menuItems } from '../data/menu-data';
-
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-}
+import { CartState } from '../data/CartState';
+import type { CartItem } from '../data/CartState';
 
 export class Cart {
-  private items: CartItem[] = [];
   private drawer: HTMLElement | null = null;
   private backdrop: HTMLElement | null = null;
   private badgeEl: HTMLElement | null = null;
@@ -64,7 +57,6 @@ export class Cart {
       <span class="header__cart-badge" id="cart-badge" aria-live="polite" hidden>0</span>
     `;
 
-    // Insert before hamburger (after CTA and Login link)
     const hamburger = $('#hamburger', header);
     if (hamburger) {
       header.insertBefore(btn, hamburger);
@@ -74,14 +66,12 @@ export class Cart {
   }
 
   private injectDrawer(): void {
-    // Backdrop
     const backdrop = document.createElement('div');
     backdrop.className = 'cart-backdrop';
     backdrop.id = 'cart-backdrop';
     backdrop.setAttribute('aria-hidden', 'true');
     document.body.appendChild(backdrop);
 
-    // Drawer
     const drawer = document.createElement('aside');
     drawer.className = 'cart-drawer';
     drawer.id = 'cart-drawer';
@@ -147,32 +137,24 @@ export class Cart {
   }
 
   private bindEvents(): void {
-    // Cart icon toggle
     this.toggleBtn?.addEventListener('click', () => this.openDrawer());
-
-    // Close button
     $('#cart-close')?.addEventListener('click', () => this.closeDrawer());
-
-    // Backdrop click
     this.backdrop?.addEventListener('click', () => this.closeDrawer());
 
-    // Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.isOpen) this.closeDrawer();
     });
 
-    // Delegated click on menu grid for "Pedir" buttons
     const menuGrid = $('#menu-grid');
     menuGrid?.addEventListener('click', (e) => this.onPedirClick(e));
 
-    // Delegated click on cart items for quantity/remove
     this.itemsContainer?.addEventListener('click', (e) => this.onCartItemClick(e));
 
-    // Checkout button
+    // Checkout → payment page
     $('#cart-checkout')?.addEventListener('click', () => {
       this.closeDrawer();
-      const contact = $('#contact');
-      contact?.scrollIntoView({ behavior: 'smooth' });
+      const base = import.meta.env.BASE_URL;
+      window.location.href = `${base}payment.html`;
     });
   }
 
@@ -192,14 +174,16 @@ export class Cart {
     const menuItem = menuItems.find((item) => item.id === itemId);
     if (!menuItem) return;
 
-    this.addItem({
+    CartState.addItem({
       id: menuItem.id,
       name: menuItem.name,
       price: menuItem.price,
       image: menuItem.image,
     });
+    this.render();
+    this.showToast(menuItem.name);
 
-    // Button feedback animation
+    // Button feedback
     const btnEl = btn as HTMLElement;
     btnEl.textContent = '✓ Adicionado';
     btnEl.style.pointerEvents = 'none';
@@ -222,56 +206,20 @@ export class Cart {
 
     switch (action) {
       case 'increase':
-        this.updateQuantity(id, 1);
+        CartState.updateQty(id, 1);
         break;
       case 'decrease':
-        this.updateQuantity(id, -1);
+        CartState.updateQty(id, -1);
         break;
       case 'remove':
-        this.removeItem(id);
+        CartState.removeItem(id);
         break;
     }
-  }
-
-  // ─── State Management ───
-
-  private addItem(item: Omit<CartItem, 'quantity'>): void {
-    const existing = this.items.find((i) => i.id === item.id);
-    if (existing) {
-      existing.quantity++;
-    } else {
-      this.items.push({ ...item, quantity: 1 });
-    }
     this.render();
-    this.showToast(item.name);
-  }
 
-  private removeItem(id: string): void {
-    this.items = this.items.filter((i) => i.id !== id);
-    this.render();
-    if (this.items.length === 0 && this.isOpen) {
+    if (CartState.getCount() === 0 && this.isOpen) {
       setTimeout(() => this.closeDrawer(), 300);
     }
-  }
-
-  private updateQuantity(id: string, delta: number): void {
-    const item = this.items.find((i) => i.id === id);
-    if (!item) return;
-
-    item.quantity += delta;
-    if (item.quantity <= 0) {
-      this.removeItem(id);
-      return;
-    }
-    this.render();
-  }
-
-  private getTotal(): number {
-    return this.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  }
-
-  private getCount(): number {
-    return this.items.reduce((sum, item) => sum + item.quantity, 0);
   }
 
   // ─── Rendering ───
@@ -284,7 +232,9 @@ export class Cart {
   private renderItems(): void {
     if (!this.itemsContainer || !this.emptyState || !this.footerEl || !this.totalEl) return;
 
-    if (this.items.length === 0) {
+    const items = CartState.getItems();
+
+    if (items.length === 0) {
       this.itemsContainer.innerHTML = '';
       this.itemsContainer.style.display = 'none';
       this.emptyState.removeAttribute('hidden');
@@ -296,11 +246,11 @@ export class Cart {
     this.itemsContainer.style.display = '';
     this.footerEl.removeAttribute('hidden');
 
-    this.itemsContainer.innerHTML = this.items
+    this.itemsContainer.innerHTML = items
       .map((item) => this.renderCartItem(item))
       .join('');
 
-    this.totalEl.textContent = `R$ ${this.getTotal().toFixed(2).replace('.', ',')}`;
+    this.totalEl.textContent = `R$ ${CartState.getTotal().toFixed(2).replace('.', ',')}`;
   }
 
   private renderCartItem(item: CartItem): string {
@@ -338,13 +288,12 @@ export class Cart {
   private renderBadge(): void {
     if (!this.badgeEl) return;
 
-    const count = this.getCount();
+    const count = CartState.getCount();
     if (count > 0) {
       this.badgeEl.textContent = String(count);
       this.badgeEl.removeAttribute('hidden');
-      // Trigger bounce animation
       this.badgeEl.classList.remove('header__cart-badge--bounce');
-      void this.badgeEl.offsetWidth; // force reflow
+      void this.badgeEl.offsetWidth;
       this.badgeEl.classList.add('header__cart-badge--bounce');
     } else {
       this.badgeEl.setAttribute('hidden', '');
@@ -377,7 +326,6 @@ export class Cart {
     this.toggleBtn?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
 
-    // Focus close button
     const closeBtn = $('#cart-close', this.drawer!);
     closeBtn?.focus();
   }
@@ -392,7 +340,6 @@ export class Cart {
     this.toggleBtn?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
 
-    // Return focus to toggle button
     this.toggleBtn?.focus();
   }
 }

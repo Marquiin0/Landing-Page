@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produto | Sabor da Esquina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  <script type="module" src="/src/product.ts"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="product-header">
+    <div class="container product-header__container">
+      <a href="index.html" class="product-header__logo">
+        <div class="product-header__logo-icon">S</div>
+        <span>Sabor <i>da Esquina</i></span>
+      </a>
+      <nav class="product-header__breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Início</a>
+        <span>/</span>
+        <a href="index.html#menu">Cardápio</a>
+        <span>/</span>
+        <span class="product-header__crumb-current" id="breadcrumb-name">Produto</span>
+      </nav>
+      <a href="index.html#menu" class="btn btn--outline btn--sm product-header__back">← Voltar ao Cardápio</a>
+    </div>
+  </header>
+
+  <main class="product-page">
+    <div class="container">
+      <!-- Product Detail -->
+      <section class="product" id="product-detail">
+        <div class="product__gallery">
+          <div class="product__main-image">
+            <img id="product-main-img" src="" alt="" />
+            <span class="product__badge" id="product-badge" hidden></span>
+          </div>
+          <div class="product__thumbnails" id="product-thumbs"></div>
+        </div>
+
+        <div class="product__info">
+          <span class="product__category" id="product-category"></span>
+          <h1 class="product__name" id="product-name"></h1>
+          <div class="product__rating" id="product-rating"></div>
+          <p class="product__description" id="product-description"></p>
+
+          <div class="product__details" id="product-details"></div>
+
+          <div class="product__price-row">
+            <span class="product__price" id="product-price"></span>
+            <div class="product__qty">
+              <button class="product__qty-btn" id="qty-decrease">−</button>
+              <span class="product__qty-value" id="qty-value">1</span>
+              <button class="product__qty-btn" id="qty-increase">+</button>
+            </div>
+          </div>
+
+          <button class="btn btn--primary btn--lg product__add-btn" id="add-to-cart">
+            🛒 Adicionar ao Carrinho
+          </button>
+        </div>
+      </section>
+
+      <!-- Reviews -->
+      <section class="product-reviews" id="product-reviews">
+        <h2 class="product-reviews__title">Avaliações dos clientes</h2>
+        <div class="product-reviews__list" id="reviews-list"></div>
+      </section>
+
+      <!-- Related -->
+      <section class="product-related" id="product-related">
+        <h2 class="product-related__title">Você também vai gostar</h2>
+        <div class="product-related__grid" id="related-grid"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Toast -->
+  <div class="cart-toast" id="cart-toast" role="status" aria-live="polite">
+    <span class="cart-toast__icon">✓</span>
+    <span class="cart-toast__text" id="cart-toast-text"></span>
+  </div>
+</body>
+</html>

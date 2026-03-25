@@ -41,13 +41,16 @@ export class MenuFilter {
       ? `<span class="menu__card-badge menu__card-badge--${item.badge}">${this.badgeLabel(item.badge)}</span>`
       : '';
 
+    const base = import.meta.env.BASE_URL;
+    const productUrl = `${base}product.html?id=${item.id}`;
+
     card.innerHTML = `
-      <div class="menu__card-image">
+      <a href="${productUrl}" class="menu__card-image menu__card-link">
         ${badgeHtml}
         <img src="${this.resolveImage(item.image)}" alt="${item.name}" loading="lazy" decoding="async" width="400" height="300" />
-      </div>
+      </a>
       <div class="menu__card-content">
-        <h3 class="menu__card-name">${item.name}</h3>
+        <a href="${productUrl}" class="menu__card-name-link"><h3 class="menu__card-name">${item.name}</h3></a>
         <p class="menu__card-description">${item.description}</p>
         <div class="menu__card-footer">
           <span class="menu__card-price">R$ ${item.price.toFixed(2).replace('.', ',')}</span>

@@ -122,12 +122,28 @@
   padding: var(--space-lg);
 }
 
+.menu__card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.menu__card-name-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.menu__card-name-link:hover .menu__card-name {
+  color: var(--color-primary);
+}
+
 .menu__card-name {
   font-family: var(--font-accent);
   font-size: var(--text-lg);
   font-weight: 600;
   color: var(--color-secondary);
   margin-bottom: var(--space-xs);
+  transition: color var(--transition-fast);
 }
 
 .menu__card-description {

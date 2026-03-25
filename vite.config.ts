@@ -21,6 +21,9 @@ export default {
       input: {
         main: resolve(__dirname, 'index.html'),
         login: resolve(__dirname, 'login.html'),
+        product: resolve(__dirname, 'product.html'),
+        payment: resolve(__dirname, 'payment.html'),
+        confirmation: resolve(__dirname, 'confirmation.html'),
       },
       output: {
         manualChunks: undefined,

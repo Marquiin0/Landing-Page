@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pagamento | Sabor da Esquina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  <script type="module" src="/src/payment.ts"></script>
+</head>
+<body>
+  <div class="pay">
+    <!-- Header -->
+    <header class="pay__header">
+      <div class="container pay__header-container">
+        <a href="index.html" class="pay__logo">
+          <div class="pay__logo-icon">S</div>
+          <span>Sabor <i>da Esquina</i></span>
+        </a>
+        <span class="pay__header-title">Finalizar Pedido</span>
+        <a href="index.html#menu" class="pay__header-back">← Voltar</a>
+      </div>
+    </header>
+
+    <!-- Progress bar -->
+    <div class="pay__progress">
+      <div class="container">
+        <div class="pay__steps">
+          <div class="pay__step pay__step--active" data-step="1">
+            <div class="pay__step-circle">1</div>
+            <span class="pay__step-label">Dados</span>
+          </div>
+          <div class="pay__step-line"></div>
+          <div class="pay__step" data-step="2">
+            <div class="pay__step-circle">2</div>
+            <span class="pay__step-label">Entrega</span>
+          </div>
+          <div class="pay__step-line"></div>
+          <div class="pay__step" data-step="3">
+            <div class="pay__step-circle">3</div>
+            <span class="pay__step-label">Pagamento</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="pay__main">
+      <div class="container pay__layout">
+        <!-- Formulários (esquerda) -->
+        <div class="pay__forms">
+
+          <!-- Step 1: Dados -->
+          <form class="pay__form" id="step-1" novalidate>
+            <h2 class="pay__form-title">Seus dados</h2>
+            <div class="form__group">
+              <input type="text" id="pay-name" class="form__input" placeholder=" " required minlength="2" autocomplete="name" />
+              <label for="pay-name" class="form__label">Nome completo</label>
+              <span class="form__feedback"></span>
+            </div>
+            <div class="form__group">
+              <input type="email" id="pay-email" class="form__input" placeholder=" " required autocomplete="email" />
+              <label for="pay-email" class="form__label">E-mail</label>
+              <span class="form__feedback"></span>
+            </div>
+            <div class="form__group">
+              <input type="tel" id="pay-phone" class="form__input" placeholder=" " required autocomplete="tel" />
+              <label for="pay-phone" class="form__label">Telefone / WhatsApp</label>
+              <span class="form__feedback"></span>
+            </div>
+            <div class="form__group">
+              <input type="text" id="pay-cpf" class="form__input" placeholder=" " required />
+              <label for="pay-cpf" class="form__label">CPF</label>
+              <span class="form__feedback"></span>
+            </div>
+            <button type="submit" class="btn btn--primary btn--lg pay__next-btn">Continuar →</button>
+          </form>
+
+          <!-- Step 2: Endereço -->
+          <form class="pay__form pay__form--hidden" id="step-2" novalidate>
+            <h2 class="pay__form-title">Endereço de entrega</h2>
+            <div class="form__row">
+              <div class="form__group form__group--sm">
+                <input type="text" id="pay-cep" class="form__input" placeholder=" " required />
+                <label for="pay-cep" class="form__label">CEP</label>
+                <span class="form__feedback"></span>
+              </div>
+            </div>
+            <div class="form__group">
+              <input type="text" id="pay-street" class="form__input" placeholder=" " required />
+              <label for="pay-street" class="form__label">Rua</label>
+              <span class="form__feedback"></span>
+            </div>
+            <div class="form__row">
+              <div class="form__group form__group--sm">
+                <input type="text" id="pay-number" class="form__input" placeholder=" " required />
+                <label for="pay-number" class="form__label">Número</label>
+                <span class="form__feedback"></span>
+              </div>
+              <div class="form__group">
+                <input type="text" id="pay-complement" class="form__input" placeholder=" " />
+                <label for="pay-complement" class="form__label">Complemento</label>
+              </div>
+            </div>
+            <div class="form__group">
+              <input type="text" id="pay-neighborhood" class="form__input" placeholder=" " required />
+              <label for="pay-neighborhood" class="form__label">Bairro</label>
+              <span class="form__feedback"></span>
+            </div>
+            <div class="form__row">
+              <div class="form__group">
+                <input type="text" id="pay-city" class="form__input" placeholder=" " required />
+                <label for="pay-city" class="form__label">Cidade</label>
+                <span class="form__feedback"></span>
+              </div>
+              <div class="form__group form__group--sm">
+                <input type="text" id="pay-state" class="form__input" placeholder=" " required maxlength="2" />
+                <label for="pay-state" class="form__label">UF</label>
+                <span class="form__feedback"></span>
+              </div>
+            </div>
+
+            <h3 class="pay__subtitle">Forma de entrega</h3>
+            <div class="pay__shipping-options">
+              <label class="pay__shipping-option">
+                <input type="radio" name="shipping" value="padrao" checked />
+                <div class="pay__shipping-card">
+                  <span class="pay__shipping-icon">🛵</span>
+                  <div>
+                    <span class="pay__shipping-name">Entrega padrão</span>
+                    <span class="pay__shipping-time">30-45 min</span>
+                  </div>
+                  <span class="pay__shipping-price">R$ 5,90</span>
+                </div>
+              </label>
+              <label class="pay__shipping-option">
+                <input type="radio" name="shipping" value="expressa" />
+                <div class="pay__shipping-card">
+                  <span class="pay__shipping-icon">⚡</span>
+                  <div>
+                    <span class="pay__shipping-name">Entrega expressa</span>
+                    <span class="pay__shipping-time">15-25 min</span>
+                  </div>
+                  <span class="pay__shipping-price">R$ 12,90</span>
+                </div>
+              </label>
+              <label class="pay__shipping-option">
+                <input type="radio" name="shipping" value="retirada" />
+                <div class="pay__shipping-card">
+                  <span class="pay__shipping-icon">🏪</span>
+                  <div>
+                    <span class="pay__shipping-name">Retirada no local</span>
+                    <span class="pay__shipping-time">20-30 min</span>
+                  </div>
+                  <span class="pay__shipping-price pay__shipping-price--free">Grátis</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="pay__form-actions">
+              <button type="button" class="btn btn--outline btn--lg pay__back-btn" data-back="1">← Voltar</button>
+              <button type="submit" class="btn btn--primary btn--lg pay__next-btn">Continuar →</button>
+            </div>
+          </form>
+
+          <!-- Step 3: Pagamento -->
+          <form class="pay__form pay__form--hidden" id="step-3" novalidate>
+            <h2 class="pay__form-title">Pagamento</h2>
+
+            <!-- Cupom -->
+            <div class="pay__coupon">
+              <div class="pay__coupon-input">
+                <input type="text" id="pay-coupon" class="form__input form__input--coupon" placeholder="Código do cupom" />
+                <button type="button" class="btn btn--sm pay__coupon-btn" id="apply-coupon">Aplicar</button>
+              </div>
+              <span class="pay__coupon-feedback" id="coupon-feedback"></span>
+            </div>
+
+            <!-- Métodos -->
+            <div class="pay__methods">
+              <button type="button" class="pay__method pay__method--active" data-method="pix">
+                <span class="pay__method-icon">📱</span> Pix
+              </button>
+              <button type="button" class="pay__method" data-method="credito">
+                <span class="pay__method-icon">💳</span> Crédito
+              </button>
+              <button type="button" class="pay__method" data-method="debito">
+                <span class="pay__method-icon">💳</span> Débito
+              </button>
+            </div>
+
+            <!-- Pix -->
+            <div class="pay__method-content" id="method-pix">
+              <div class="pay__pix">
+                <div class="pay__pix-qr">
+                  <div class="pay__pix-qr-placeholder">
+                    <svg viewBox="0 0 100 100" width="160" height="160">
+                      <rect width="100" height="100" fill="#f0f0f0" rx="8"/>
+                      <text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="monospace" font-size="8" fill="#999">QR CODE</text>
+                      <rect x="10" y="10" width="20" height="20" fill="#333" rx="2"/>
+                      <rect x="70" y="10" width="20" height="20" fill="#333" rx="2"/>
+                      <rect x="10" y="70" width="20" height="20" fill="#333" rx="2"/>
+                      <rect x="35" y="35" width="30" height="30" fill="#FF6B35" rx="4"/>
+                      <text x="50" y="52" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="10" fill="white" font-weight="bold">S</text>
+                    </svg>
+                  </div>
+                  <p class="pay__pix-instruction">Escaneie o QR Code com seu app de pagamento</p>
+                </div>
+                <div class="pay__pix-copy">
+                  <span class="pay__pix-label">Ou copie o código Pix:</span>
+                  <div class="pay__pix-code">
+                    <input type="text" value="00020126360014BR.GOV.BCB.PIX0114+5511999999999" readonly class="pay__pix-input" />
+                    <button type="button" class="btn btn--sm pay__pix-copy-btn" id="copy-pix">Copiar</button>
+                  </div>
+                </div>
+                <div class="pay__pix-timer">
+                  <span>⏱️ Pague em até</span>
+                  <span class="pay__pix-countdown" id="pix-timer">15:00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Crédito -->
+            <div class="pay__method-content pay__method-content--hidden" id="method-credito">
+              <div class="form__group">
+                <input type="text" id="card-number" class="form__input" placeholder=" " required maxlength="19" />
+                <label for="card-number" class="form__label">Número do cartão</label>
+                <span class="form__feedback"></span>
+              </div>
+              <div class="form__group">
+                <input type="text" id="card-name" class="form__input" placeholder=" " required />
+                <label for="card-name" class="form__label">Nome no cartão</label>
+                <span class="form__feedback"></span>
+              </div>
+              <div class="form__row">
+                <div class="form__group">
+                  <input type="text" id="card-expiry" class="form__input" placeholder=" " required maxlength="5" />
+                  <label for="card-expiry" class="form__label">Validade</label>
+                  <span class="form__feedback"></span>
+                </div>
+                <div class="form__group form__group--sm">
+                  <input type="text" id="card-cvv" class="form__input" placeholder=" " required maxlength="4" />
+                  <label for="card-cvv" class="form__label">CVV</label>
+                  <span class="form__feedback"></span>
+                </div>
+              </div>
+              <div class="form__group">
+                <select id="card-installments" class="form__input form__input--select">
+                  <option value="1">1x sem juros</option>
+                  <option value="2">2x sem juros</option>
+                  <option value="3">3x sem juros</option>
+                </select>
+                <label class="form__label form__label--select">Parcelas</label>
+              </div>
+            </div>
+
+            <!-- Débito -->
+            <div class="pay__method-content pay__method-content--hidden" id="method-debito">
+              <div class="form__group">
+                <input type="text" id="debit-number" class="form__input" placeholder=" " required maxlength="19" />
+                <label for="debit-number" class="form__label">Número do cartão</label>
+                <span class="form__feedback"></span>
+              </div>
+              <div class="form__group">
+                <input type="text" id="debit-name" class="form__input" placeholder=" " required />
+                <label for="debit-name" class="form__label">Nome no cartão</label>
+                <span class="form__feedback"></span>
+              </div>
+              <div class="form__row">
+                <div class="form__group">
+                  <input type="text" id="debit-expiry" class="form__input" placeholder=" " required maxlength="5" />
+                  <label for="debit-expiry" class="form__label">Validade</label>
+                  <span class="form__feedback"></span>
+                </div>
+                <div class="form__group form__group--sm">
+                  <input type="text" id="debit-cvv" class="form__input" placeholder=" " required maxlength="4" />
+                  <label for="debit-cvv" class="form__label">CVV</label>
+                  <span class="form__feedback"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pay__form-actions">
+              <button type="button" class="btn btn--outline btn--lg pay__back-btn" data-back="2">← Voltar</button>
+              <button type="submit" class="btn btn--primary btn--lg pay__finish-btn" id="finish-order">
+                <span class="pay__finish-text">Finalizar Pedido</span>
+                <span class="pay__finish-loading" aria-hidden="true"></span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Resumo (direita) -->
+        <aside class="pay__summary">
+          <h3 class="pay__summary-title">Resumo do pedido</h3>
+          <div class="pay__summary-items" id="summary-items"></div>
+          <div class="pay__summary-row">
+            <span>Subtotal</span>
+            <span id="summary-subtotal">R$ 0,00</span>
+          </div>
+          <div class="pay__summary-row">
+            <span>Frete</span>
+            <span id="summary-shipping">R$ 5,90</span>
+          </div>
+          <div class="pay__summary-row pay__summary-row--discount" id="summary-discount-row" hidden>
+            <span>Desconto</span>
+            <span id="summary-discount">- R$ 0,00</span>
+          </div>
+          <div class="pay__summary-row pay__summary-row--total">
+            <span>Total</span>
+            <span id="summary-total">R$ 0,00</span>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -20,6 +20,9 @@
 @import './components/_footer.css';
 @import './components/_cart.css';
 @import './components/_login.css';
+@import './components/_product.css';
+@import './components/_payment.css';
+@import './components/_confirmation.css';
 
 /* Responsive overrides */
 @import './_responsive.css';
