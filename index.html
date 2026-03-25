@@ -605,14 +605,14 @@
       <div class="container contact__container">
         <div class="contact__form-wrapper" data-animate="fade-right">
           <div class="section__header section__header--left">
-            <span class="section__label">Contato</span>
-            <h2 class="section__title">Faça sua <span class="text-accent">reserva</span></h2>
-            <p class="section__subtitle">Preencha o formulário ou entre em contato pelos nossos canais.</p>
+            <span class="section__label">Reserva</span>
+            <h2 class="section__title">Reserve sua <span class="text-accent">mesa</span></h2>
+            <p class="section__subtitle">Garanta seu lugar e venha aproveitar o melhor lanche da cidade.</p>
           </div>
           <form class="contact__form" id="contact-form" novalidate>
             <div class="form__group">
               <input type="text" id="name" name="name" class="form__input" placeholder=" " required minlength="2" autocomplete="name" />
-              <label for="name" class="form__label">Seu Nome</label>
+              <label for="name" class="form__label">Nome completo</label>
               <span class="form__feedback"></span>
             </div>
             <div class="form__group">
@@ -625,19 +625,71 @@
               <label for="email" class="form__label">E-mail</label>
               <span class="form__feedback"></span>
             </div>
+            <div class="form__row">
+              <div class="form__group">
+                <input type="date" id="reservation-date" name="date" class="form__input form__input--date" required />
+                <label for="reservation-date" class="form__label form__label--always-up">Data da reserva</label>
+                <span class="form__feedback"></span>
+              </div>
+              <div class="form__group">
+                <select id="reservation-time" name="time" class="form__input form__input--select" required>
+                  <option value="" disabled selected></option>
+                  <option value="11:00">11:00</option>
+                  <option value="11:30">11:30</option>
+                  <option value="12:00">12:00</option>
+                  <option value="12:30">12:30</option>
+                  <option value="13:00">13:00</option>
+                  <option value="13:30">13:30</option>
+                  <option value="14:00">14:00</option>
+                  <option value="14:30">14:30</option>
+                  <option value="15:00">15:00</option>
+                  <option value="15:30">15:30</option>
+                  <option value="16:00">16:00</option>
+                  <option value="16:30">16:30</option>
+                  <option value="17:00">17:00</option>
+                  <option value="17:30">17:30</option>
+                  <option value="18:00">18:00</option>
+                  <option value="18:30">18:30</option>
+                  <option value="19:00">19:00</option>
+                  <option value="19:30">19:30</option>
+                  <option value="20:00">20:00</option>
+                  <option value="20:30">20:30</option>
+                  <option value="21:00">21:00</option>
+                  <option value="21:30">21:30</option>
+                  <option value="22:00">22:00</option>
+                  <option value="22:30">22:30</option>
+                </select>
+                <label for="reservation-time" class="form__label form__label--always-up">Horário</label>
+                <span class="form__feedback"></span>
+              </div>
+            </div>
             <div class="form__group form__group--full">
-              <textarea id="message" name="message" class="form__input form__textarea" placeholder=" " rows="4"></textarea>
-              <label for="message" class="form__label">Sua Mensagem (opcional)</label>
+              <label class="reservation__guests-label">Número de pessoas</label>
+              <div class="reservation__guests" id="guests-selector">
+                <button type="button" class="reservation__guest-btn" data-guests="1">1</button>
+                <button type="button" class="reservation__guest-btn reservation__guest-btn--active" data-guests="2">2</button>
+                <button type="button" class="reservation__guest-btn" data-guests="3">3</button>
+                <button type="button" class="reservation__guest-btn" data-guests="4">4</button>
+                <button type="button" class="reservation__guest-btn" data-guests="5">5</button>
+                <button type="button" class="reservation__guest-btn" data-guests="6">6</button>
+                <button type="button" class="reservation__guest-btn" data-guests="7">7</button>
+                <button type="button" class="reservation__guest-btn" data-guests="8">8+</button>
+              </div>
+              <input type="hidden" id="guests-count" name="guests" value="2" />
+            </div>
+            <div class="form__group form__group--full">
+              <textarea id="message" name="message" class="form__input form__textarea" placeholder=" " rows="3"></textarea>
+              <label for="message" class="form__label">Observações (opcional)</label>
               <span class="form__feedback"></span>
             </div>
-            <button type="submit" class="btn btn--primary btn--lg form__submit">
-              <span class="form__submit-text">Enviar Mensagem</span>
+            <button type="submit" class="btn btn--primary btn--lg form__submit form__submit--full">
+              <span class="form__submit-text">Confirmar Reserva</span>
               <span class="form__submit-loading" aria-hidden="true"></span>
             </button>
           </form>
           <div class="contact__toast" id="contact-toast" role="alert" aria-live="polite">
             <span class="contact__toast-icon">✓</span>
-            Mensagem enviada com sucesso! Entraremos em contato em breve.
+            Reserva confirmada! Enviaremos a confirmação por WhatsApp.
           </div>
         </div>
         <div class="contact__info" data-animate="fade-left">
@@ -678,12 +730,18 @@
               </div>
               <div>
                 <p class="contact__detail-title">Horário</p>
-                <p class="contact__detail-text">
-                  Seg - Sex: 11h às 23h<br/>
-                  Sáb - Dom: 11h às 00h
-                </p>
+                <p class="contact__detail-text">Seg - Sex: 11h às 23h<br/>Sáb - Dom: 11h às 00h</p>
               </div>
             </div>
+          </div>
+          <!-- Card especial grupos -->
+          <div class="contact__group-card">
+            <span class="contact__group-icon">👥</span>
+            <div>
+              <p class="contact__group-title">Grupos de 8+ pessoas?</p>
+              <p class="contact__group-text">Para reservas maiores, entre em contato diretamente.</p>
+            </div>
+            <a href="https://wa.me/5511999999999?text=Olá! Gostaria de fazer uma reserva para um grupo grande." target="_blank" class="btn btn--sm btn--primary contact__group-btn">WhatsApp</a>
           </div>
         </div>
       </div>

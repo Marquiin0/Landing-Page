@@ -16,6 +16,17 @@ export class ContactForm {
       phoneInput.addEventListener('input', () => this.applyPhoneMask(phoneInput));
     }
 
+    // Set min date to today
+    const dateInput = $<HTMLInputElement>('#reservation-date', this.form);
+    if (dateInput) {
+      const today = new Date().toISOString().split('T')[0];
+      dateInput.min = today;
+      dateInput.value = today;
+    }
+
+    // Guest selector
+    this.bindGuestSelector();
+
     // Real-time validation
     const inputs = $$<HTMLInputElement | HTMLTextAreaElement>('.form__input', this.form);
     inputs.forEach((input) => {
@@ -31,13 +42,30 @@ export class ContactForm {
     this.form.addEventListener('submit', (e) => this.handleSubmit(e));
   }
 
+  private bindGuestSelector(): void {
+    const container = $('#guests-selector');
+    const hiddenInput = $<HTMLInputElement>('#guests-count');
+    if (!container || !hiddenInput) return;
+
+    container.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLElement>('.reservation__guest-btn');
+      if (!btn) return;
+
+      container.querySelectorAll('.reservation__guest-btn').forEach((b) => {
+        b.classList.remove('reservation__guest-btn--active');
+      });
+      btn.classList.add('reservation__guest-btn--active');
+
+      hiddenInput.value = btn.dataset.guests || '2';
+    });
+  }
+
   private applyPhoneMask(input: HTMLInputElement): void {
     let value = input.value.replace(/\D/g, '');
 
     if (value.length > 11) value = value.slice(0, 11);
 
     if (value.length > 6) {
-      // (XX) XXXXX-XXXX or (XX) XXXX-XXXX
       const ddd = value.slice(0, 2);
       const hasNine = value.length > 10;
       if (hasNine) {
@@ -65,11 +93,20 @@ export class ContactForm {
       return false;
     }
 
-    // Phone validation
     if (input.type === 'tel' && input.value) {
       const digits = input.value.replace(/\D/g, '');
       if (digits.length < 10) {
         this.showError(input, feedback, 'Telefone deve ter pelo menos 10 dígitos');
+        return false;
+      }
+    }
+
+    if (input.type === 'date' && input.value) {
+      const selected = new Date(input.value + 'T00:00:00');
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (selected < today) {
+        this.showError(input, feedback, 'Selecione uma data futura');
         return false;
       }
     }
@@ -121,7 +158,6 @@ export class ContactForm {
 
     if (!isValid) return;
 
-    // Simulate submission
     const submitBtn = $<HTMLButtonElement>('.form__submit', this.form);
     if (submitBtn) {
       submitBtn.classList.add('form__submit--loading');
@@ -134,17 +170,28 @@ export class ContactForm {
         submitBtn.disabled = false;
       }
 
-      // Show toast
       this.toast?.classList.add('contact__toast--visible');
       setTimeout(() => {
         this.toast?.classList.remove('contact__toast--visible');
       }, 4000);
 
-      // Reset form
+      // Reset
       this.form!.reset();
       inputs.forEach((input) => {
         input.classList.remove('form__input--valid', 'form__input--error');
       });
+
+      // Reset guest selector
+      document.querySelectorAll('.reservation__guest-btn').forEach((b) => {
+        b.classList.remove('reservation__guest-btn--active');
+      });
+      document.querySelector('.reservation__guest-btn[data-guests="2"]')?.classList.add('reservation__guest-btn--active');
+      const guestsInput = $<HTMLInputElement>('#guests-count');
+      if (guestsInput) guestsInput.value = '2';
+
+      // Reset date to today
+      const dateInput = $<HTMLInputElement>('#reservation-date');
+      if (dateInput) dateInput.value = new Date().toISOString().split('T')[0];
     }, 1500);
   }
 }

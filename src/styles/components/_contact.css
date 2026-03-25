@@ -23,6 +23,15 @@
   grid-column: 1 / -1;
 }
 
+.form__row {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.form__row .form__group {
+  flex: 1;
+}
+
 .form__input {
   width: 100%;
   height: 56px;
@@ -31,6 +40,8 @@
   border: 2px solid #E5E5E5;
   border-radius: var(--border-radius-sm);
   font-size: var(--text-base);
+  font-family: var(--font-body);
+  color: var(--color-text);
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
   outline: none;
 }
@@ -49,9 +60,15 @@
   border-color: var(--color-success);
 }
 
+.form__input--date,
+.form__input--select {
+  cursor: pointer;
+  padding-top: 24px;
+}
+
 .form__textarea {
   height: auto;
-  min-height: 120px;
+  min-height: 100px;
   padding-top: 28px;
   resize: vertical;
 }
@@ -74,9 +91,18 @@
   transform: none;
 }
 
-/* Label moves up when focused or has content */
 .form__input:focus ~ .form__label,
 .form__input:not(:placeholder-shown) ~ .form__label {
+  top: 10px;
+  transform: none;
+  font-size: 0.7rem;
+  color: var(--color-primary);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Labels that always stay up (date, select) */
+.form__label--always-up {
   top: 10px;
   transform: none;
   font-size: 0.7rem;
@@ -104,10 +130,62 @@
   opacity: 1;
 }
 
+/* ═══ Guest Selector ═══ */
+
+.reservation__guests-label {
+  display: block;
+  font-family: var(--font-accent);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.reservation__guests {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.reservation__guest-btn {
+  width: 48px;
+  height: 48px;
+  border: 2px solid #E5E5E5;
+  border-radius: var(--border-radius-full);
+  background: var(--color-white);
+  font-family: var(--font-accent);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reservation__guest-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.reservation__guest-btn--active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+  transform: scale(1.08);
+}
+
 /* Submit */
 .form__submit {
   justify-self: start;
   position: relative;
+}
+
+.form__submit--full {
+  width: 100%;
+  justify-self: stretch;
 }
 
 .form__submit-loading {
@@ -205,6 +283,52 @@
   font-size: var(--text-sm);
   color: var(--color-text-muted);
   line-height: 1.6;
+}
+
+/* ═══ Group Card ═══ */
+
+.contact__group-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  background: var(--color-white);
+  border: 2px dashed rgba(255, 107, 53, 0.3);
+  border-radius: var(--border-radius);
+}
+
+.contact__group-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.contact__group-title {
+  font-family: var(--font-accent);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-secondary);
+  margin: 0 0 2px;
+}
+
+.contact__group-text {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.contact__group-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ═══ Responsive ═══ */
+
+@media (max-width: 640px) {
+  .form__row {
+    flex-direction: column;
+  }
 }
 
 @media (min-width: 768px) {
