@@ -64,8 +64,8 @@ export class Cart {
       <span class="header__cart-badge" id="cart-badge" aria-live="polite" hidden>0</span>
     `;
 
-    // Insert before hamburger or CTA
-    const hamburger = $('#hamburger', header) || $('.header__cta', header);
+    // Insert before hamburger (after CTA and Login link)
+    const hamburger = $('#hamburger', header);
     if (hamburger) {
       header.insertBefore(btn, hamburger);
     } else {
