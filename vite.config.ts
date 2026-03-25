@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import type { UserConfig } from 'vite';
 
 export default {
@@ -17,6 +18,10 @@ export default {
       },
     },
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        login: resolve(__dirname, 'login.html'),
+      },
       output: {
         manualChunks: undefined,
       },
