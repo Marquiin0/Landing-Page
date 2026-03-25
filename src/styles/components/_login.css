@@ -302,8 +302,7 @@
 .form__toggle-pw {
   position: absolute;
   right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 18px;
   border: none;
   background: transparent;
   color: var(--color-text-muted);
