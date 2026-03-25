@@ -349,10 +349,24 @@
 }
 
 .user-menu__item-icon {
-  font-size: 1.1rem;
   width: 24px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+
+.user-menu__item:hover .user-menu__item-icon {
+  color: var(--color-primary);
+}
+
+.user-menu__item-icon--logout {
+  color: var(--color-error);
+}
+
+.user-menu__item--logout:hover .user-menu__item-icon--logout {
+  color: var(--color-error);
 }
 
 .user-menu__item span:nth-child(2) {
