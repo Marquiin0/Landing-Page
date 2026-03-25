@@ -12,6 +12,8 @@ import { Counter } from './modules/Counter';
 import { ContactForm } from './modules/ContactForm';
 import { CustomCursor } from './modules/Cursor';
 import { HeroTextReveal } from './modules/HeroTextReveal';
+import { IngredientsCarousel } from './modules/IngredientsCarousel';
+import { Cart } from './modules/Cart';
 
 interface PageModule {
   init(): void;
@@ -25,7 +27,9 @@ const modules: PageModule[] = [
   new ParallaxEngine(),
   new ScrollAnimator(),
   new SmoothScroll(),
+  new IngredientsCarousel(),
   new MenuFilter(),
+  new Cart(),
   new Carousel(),
   new Gallery(),
   new Counter(),

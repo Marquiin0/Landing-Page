@@ -22,8 +22,10 @@ export class MenuFilter {
     if (!this.grid) return;
     this.grid.innerHTML = '';
 
-    items.forEach((item) => {
+    items.forEach((item, index) => {
       const card = this.createCard(item);
+      card.setAttribute('data-animate', 'slide-right');
+      card.setAttribute('data-delay', String(Math.min(index + 1, 6)));
       this.grid!.appendChild(card);
     });
   }
@@ -32,6 +34,7 @@ export class MenuFilter {
     const card = createElement('div', {
       className: 'menu__card',
       'data-category': item.category,
+      'data-item-id': item.id,
     });
 
     const badgeHtml = item.badge
