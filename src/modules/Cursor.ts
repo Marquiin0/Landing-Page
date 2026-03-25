@@ -25,6 +25,8 @@ export class CustomCursor {
     this.cursor = $('#cursor');
     if (!this.cursor) return;
 
+    document.body.classList.add('custom-cursor-active');
+
     document.addEventListener('mousemove', this.onMouseMove, { passive: true });
     document.addEventListener('mousedown', this.onMouseDown, { passive: true });
     document.addEventListener('mouseup', this.onMouseUp, { passive: true });
