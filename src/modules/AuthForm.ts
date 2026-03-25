@@ -26,6 +26,7 @@ export class AuthForm {
     this.bindPasswordStrength();
     this.bindPhoneMask();
     this.bindValidation();
+    this.bindLegalModals();
   }
 
   // ─── Tab Switching ───
@@ -278,6 +279,30 @@ export class AuthForm {
       } else {
         phoneInput.value = `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
       }
+    });
+  }
+
+  // ─── Legal Modals ───
+
+  private bindLegalModals(): void {
+    document.querySelectorAll<HTMLElement>('[data-modal]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const modalId = `${link.dataset.modal}-modal`;
+        const modal = document.getElementById(modalId) as HTMLDialogElement | null;
+        if (modal) modal.showModal();
+      });
+    });
+
+    document.querySelectorAll<HTMLDialogElement>('.legal-modal').forEach((modal) => {
+      // Close button
+      const closeBtn = modal.querySelector('.legal-modal__close');
+      closeBtn?.addEventListener('click', () => modal.close());
+
+      // Click backdrop to close
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.close();
+      });
     });
   }
 
