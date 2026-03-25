@@ -163,7 +163,7 @@ export class AccountPage {
             </div>
             <div class="acc__info-item">
               <span class="acc__info-label">Telefone</span>
-              <span class="acc__info-value">${user.phone || 'Não informado'}</span>
+              <span class="acc__info-value">${this.formatPhone(user.phone)}</span>
             </div>
           </div>
         </div>
@@ -486,7 +486,7 @@ export class AccountPage {
               </div>
               <div class="acc__info-item">
                 <span class="acc__info-label">Telefone</span>
-                <span class="acc__info-value">${user.phone || 'Não informado'}</span>
+                <span class="acc__info-value">${this.formatPhone(user.phone)}</span>
               </div>
             </div>
           </div>
@@ -560,7 +560,7 @@ export class AccountPage {
     });
   }
 
-  // ─── Phone Mask ───
+  // ─── Phone ───
 
   private applyPhoneMask(input: HTMLInputElement): void {
     let digits = input.value.replace(/\D/g, '');
@@ -572,6 +572,14 @@ export class AccountPage {
     } else {
       input.value = `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
     }
+  }
+
+  private formatPhone(phone: string): string {
+    if (!phone) return 'Não informado';
+    const digits = phone.replace(/\D/g, '');
+    if (digits.length === 11) return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+    if (digits.length === 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+    return phone;
   }
 
   // ─── Toast ───
